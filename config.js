@@ -1,15 +1,12 @@
-/**
- * Konfigurasi Aplikasi Monitoring Dana BOSP
- * Jika dibiarkan "ISI", aplikasi berjalan dalam mode pratinjau (tanpa akun).
- */
+// Unggah file ini ke GitHub bersama index.html (satu folder).
+// Nilai-nilai ini bukan rahasia, tetapi jangan menaruh kata sandi atau data sekolah di sini.
 window.APP_CONFIG = {
-  GAS: "ISI",
+  // Web app URL dari Apps Script (Deploy > Manage deployments). Diawali https://script.google.com/macros/s/ dan berakhiran /exec
+  GAS: "https://script.google.com/macros/s/AKfycbyHcnL0k5gza-Whbk4yfKUTI5UjvJBPKUXDcwv3AQ3o752rcpGlGS3c5ze1mJeme6us/exec",
   firebase: {
-    apiKey: "ISI",
-    authDomain: "ISI.firebaseapp.com",
-    projectId: "ISI",
-    storageBucket: "ISI.appspot.com",
-    messagingSenderId: "ISI",
-    appId: "ISI"
+    apiKey: "AIzaSyCW5oLxirHVACHXWNLaYZgBERHW1uCo3gw",
+    authDomain: "e-monev-bosp.firebaseapp.com",
+    projectId: "e-monev-bosp",
+    appId: "1:689128348011:web:74a328b05e60d6246ed42e"
   }
 };
