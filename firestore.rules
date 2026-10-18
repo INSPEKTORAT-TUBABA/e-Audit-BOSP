@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function aud() {
+      return request.auth != null &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'auditor';
+    }
+    // Profil peran. Sekolah hanya boleh membuat profil dirinya dengan peran 'sekolah'.
+    // Peran 'auditor' hanya bisa diberikan administrator lewat Firebase Console.
+    match /users/{u} {
+      allow read: if request.auth != null && (request.auth.uid == u || aud());
+      allow create: if request.auth != null && request.auth.uid == u
+        && request.resource.data.role == 'sekolah'
+        && request.resource.data.keys().hasOnly(['role', 'name']);
+      allow update, delete: if false;
+    }
+    // Data kiriman sekolah: sekolah menulis miliknya sendiri; auditor membaca semua.
+    match /sekolah/{u} {
+      allow read: if request.auth != null && (request.auth.uid == u || aud());
+      allow write: if request.auth != null && request.auth.uid == u;
+    }
+    // Hasil monitoring auditor: hanya auditor.
+    match /monitoring/{u} {
+      allow read, write: if aud();
+    }
+  }
+}
